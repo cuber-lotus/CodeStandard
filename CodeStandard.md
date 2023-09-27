@@ -470,17 +470,17 @@ struct Cube {
 #include <string>
 
 enum SEX {
-    SEX_MALE,        // male
-    SEX_FEMALE,      // female
-    SEX_INTERSEX,    // intersex
-    SEX_ANDROGYNOUS  // androgynous
+    SEX_Male,        // male
+    SEX_Female,      // female
+    SEX_Intersex,    // intersex
+    SEX_Androgynous  // androgynous
 };
 
 ::std::string Ask_sex(const SEX type) {
-    if (type == SEX_MALE) {
-        return "男性";
+    if (type == SEX_Male) {
+        return "Male";
     } else {
-        return "女性";
+        return "Female";
     }
 }
 
@@ -489,24 +489,24 @@ enum SEX {
     if (false) {
     }
     // male 男性
-    else if (type == SEX_MALE) {
-        return "男性";
+    else if (type == SEX_Male) {
+        return "Male";
     }
     // female 女性
-    else if (type == SEX_FEMALE) {
-        return "女性";
+    else if (type == SEX_Female) {
+        return "Female";
     }
     // intersex 双性人
-    else if (type == SEX_INTERSEX) {
-        return "双性人";
+    else if (type == SEX_Intersex) {
+        return "Intersex";
     }
     // androgynous 不男不女
-    else if (type == SEX_ANDROGYNOUS) {
-        return "不男不女";
+    else if (type == SEX_Androgynous) {
+        return "Androgynous";
     }
     // default
     else {
-        return "Error";
+        return "Sex Error";
     }
 }
 ```
@@ -525,29 +525,25 @@ enum SEX {
 #include <string>
 
 enum SEX {
-    SEX_MALE,        // male
-    SEX_FEMALE,      // female
+    SEX_Male,    // male
+    SEX_Female,  // female
 };
 
 ::std::string Ask_sexDetail(const SEX type) {
-    ::std::string res{};
-
     switch (type) {
     // male 男性
-    case SEX_MALE: {
-        res = "男性";
+    case SEX_Male: {
+        return "Male";
     } break;
     // female 女性
-    case SEX_FEMALE: {
-        res = "女性";
+    case SEX_Female: {
+        return "Female";
     } break;
     // default
     default: {
-        res = "Error";
+        return "Sex Error";
     } break;
     }
-
-    return res;
 }
 ```
 
@@ -644,28 +640,26 @@ int main() {
 
 命名规范是代码和项目规范中最重要的内容之一，也是离每个程序员最贴近的规范。
 
-> **注意：**
->
-> - **命名规范应该根据团队自身的决议**
->
-> - 不要看到在网上别人这么写就应该模仿
->
-> - 不要和编译器，框架，三方库等等命名方式冲突
-> - 注意包和文件命名的大小写在不同平台的区别（win, linux, ios）
-> - 千万不要和宏冲突，宏一般为全大写
-> - 慎用`$`来命名，会和部分框架的解析冲突
->
+**注意：**
+
+- **命名规范应该根据团队自身的决议**
+- 不要看到在网上别人或者源码怎么写就去模仿
+- 不要和编译器，框架，三方库等等命名方式冲突
+- 注意包和文件命名的大小写在不同平台的区别（win, linux, ios）
+- 千万不要和**宏冲突**，宏一般为全大写
+- 慎用`$`来命名，会和部分框架的解析冲突
+- 慎用单`_`或者双`__`**开头**，该方式为多数编译器内置使用，请避免
+
 > 下方列出多个方案仅供参考，团队选取一种遵循即可
 
 ## 常用命名规范类型
 
-| 方式                    | 举例                               |
-| ----------------------- | ---------------------------------- |
-| 小驼峰                  | redApple                           |
-| 大驼峰                  | RedApple                           |
-| 下划线                  | red_apple                          |
-| 匈牙利命名法则          | m_redApple                         |
-| 禁止单`_`或者双`__`开头 | 该方式为多数编译器内置使用，请避免 |
+| 方式           | 举例       |
+| -------------- | ---------- |
+| 小驼峰         | redApple   |
+| 大驼峰         | RedApple   |
+| 下划线         | red_apple  |
+| 匈牙利命名法则 | m_redApple |
 
 ## 长度应该适中
 
@@ -714,21 +708,19 @@ int main() {
 
 **防重包含宏**
 
-| 格式                            | 举例                                                         |
-| ------------------------------- | ------------------------------------------------------------ |
-| 全大写+下划线+文件名后缀+时间戳 | WIDGET_SET_DEVICEMESSAGE_H_1679896661<br />WIDGET_SET_DEVICEMESSAGE_HPP_1679896661 |
-| 乱码（只要你敢）                | fgGG5gs___$$25aeL36g$SDGfsA5                                 |
+| 格式                                | 举例                                                         |
+| ----------------------------------- | ------------------------------------------------------------ |
+| 全大写+下划线+文件名后缀+**时间戳** | WIDGET_SET_DEVICEMESSAGE_H_1679896661<br />WIDGET_SET_DEVICEMESSAGE_HPP_1679896661 |
+| 乱码（只要你敢）                    | fgGG5gs___$$25aeL36g$SDGfsA5                                 |
 
 ## namespace
 
-全大写或全小写，以下划线分割。
-
 > 静止在大范围内直接 `using namespace`
 
-| 格式   | 举例                  |
-| ------ | --------------------- |
-| 全大写 | namespace STD_NANE {} |
-| 全小写 | namespace std_name {} |
+| 格式       | 举例                 |
+| ---------- | -------------------- |
+| 全小写     | namespace my_name {} |
+| 首字母大写 | namespace My_Name {} |
 
 ## class & struct
 
@@ -745,14 +737,13 @@ int main() {
 
 在一些特殊情况允许使用`_`或`$`，请自行斟酌！
 
-| 场景           | 举例                       | 备注                                                        |
-| -------------- | -------------------------- | ----------------------------------------------------------- |
-| 全局           | g_redApple                 |                                                             |
-| 成员变量       | m_redApple<br />redApple_  | 请加特殊表示如`前m_`或`后缀_`便于使用时与参数和临时变量冲突 |
-| 静态变量       | s_redApple                 |                                                             |
-| 常量           | k_redApple<br />c_redApple | 常量可采用大驼峰形式，枚举同理                              |
-| 函数内普通变量 | redApple                   | 注意名称覆盖问题                                            |
-| 函数参数       | redApple                   |                                                             |
+| 场景                    | 举例                       | 备注                                                        |
+| ----------------------- | -------------------------- | ----------------------------------------------------------- |
+| 全局                    | g_redApple                 |                                                             |
+| 成员变量                | m_redApple<br />redApple_  | 请加特殊表示如`前m_`或`后缀_`便于使用时与参数和临时变量冲突 |
+| 静态变量                | s_redApple                 |                                                             |
+| 常量                    | k_redApple<br />c_redApple | 常量可采用大驼峰形式，枚举同理                              |
+| 函数内普通变量/函数参数 | redApple                   | 注意名称覆盖问题                                            |
 
 ## 宏
 
@@ -783,7 +774,7 @@ enum ColorEnum {
 ## union
 
 - 联合体名 -> 大驼峰
-- 成员 -> 循环函数内普通变量
+- 成员 -> 小驼峰
 
 ## using和typedef
 
@@ -825,6 +816,8 @@ scope_a::scope_b x;
 
 
 # ⭐运算符
+
+> 注意：请勿滥用运算符重载
 
 ## 多元运算符要左右空格
 
@@ -871,6 +864,8 @@ void fun(int * x, int & y) {
 ## 成员访问符号要贴近变量
 
 一元或二元访问符都要求贴近变量
+
+> 注意：在C++17前不保证左右的运算顺序
 
 ```cpp
 // 一元
@@ -941,7 +936,7 @@ if (x == 0) {
 
 ```cpp
 // good
-// 明示flag是一个布尔运算符
+// 明示flag是一个布尔运算符 （虽然不绝对是）
 if (true == flag) {
 }
 
@@ -972,12 +967,15 @@ if (flag) {
 **不明确的信号**：
 
 - 超过100行
+- 入参过多
 - 做过多判断
 - 扇出高于10
 
 ## 使用引用，减少使用指针
 
 在C++中引用的提出极大的提升了函数传参的便捷性。
+
+指针有空指针和野指针的情况，而引用有明确对象。
 
 ```cpp
 // C语言式传参
@@ -992,6 +990,40 @@ void cpp_swap(int &a, int &b) {
     int tmp = a;
     a = b;
     b = tmp;
+}
+```
+
+## 用const表示允许修改与否
+
+```cpp
+#include <string>
+
+// 不许修改
+void show(const std::string& str) {
+}
+
+// 允许或希望修改
+void modify(std::string& str) {
+}
+
+// 允许或希望所有权转移
+void modify(std::string&& str) {
+}
+```
+
+## 右值引用使用std::move转发引用使用std::forward
+
+```CPP
+#include <string>
+#include <utility>
+
+void fun(std::string&& str) {
+    std::move(str);
+}
+
+template <typename Type>
+void fun(Type&& arg) {
+    std::forward<Type>(arg);
 }
 ```
 
@@ -1029,7 +1061,7 @@ void fun(void* p) {
 
 ## lambda表达式
 
-> 注意：lambda表达式的本质是一个具有仿函数的匿名类的匿名对象
+> 注意：lambda表达式的本质是一个具有仿函数的匿名类的匿名对象，属于可调用对象
 >
 > 不知道本质的话，很多情况就会搞不清了
 
@@ -1038,6 +1070,8 @@ void fun(void* p) {
 - 某个函数仅作单词或少量调用
 - 算法函数的谓词或回调
 - 想要用到大量当前函数的局部变量时
+- 不想污染全局空间
+- 调用次数较少，具有特化性质
 
 ## 返回值应该明确类型
 
@@ -1053,11 +1087,11 @@ void fun(void* p) {
 // 下面是返回值`加()`和`不加()`的区别举例
 struct Node {
     int x;
-    // 返回值不带() 右值
+    // 返回值不带() int
     auto fun0() -> decltype(auto) {
         return x;
     }
-    // 返回值带()   左值引用
+    // 返回值带()   int&
     auto fun1() -> decltype(auto) {
         return (x);
     }
@@ -1076,7 +1110,7 @@ int main() {
     // 明确返回值类型
     bool b0 = arr[0];
     // ::std::vector<bool> 是一个特化版本
-    // operator[]的返回值是 class _Bit_reference
+    // operator[]的返回值是 class _Bit_reference in gnu-gcc
     auto b1 = arr[0];
 
     return 0;
@@ -1103,12 +1137,19 @@ int& fun1() {
     return x;
 }
 
-int main() {
-    // 悬空指针
-    int* p = fun0();
-    // 悬空引用
-    int& ref = fun1();
+auto fun2() {
+    int x;
+    return [&] {};
+}
 
+int main() {
+    // dangling pointer
+    int* p = fun0();
+    // dangling reference
+    int& ref = fun1();
+    // lambda dangling reference
+    auto lam = fun2();
+    
     return 0;
 }
 ```
@@ -1125,10 +1166,12 @@ C++允许多继承和不同权限的继承
 
 但是一般来说多继承会出现很多意想不到的问题，因此不推荐多继承，绝大多数情况请直接使用public继承。
 
-但有一种情况推荐多继承，就是一个主的继承类，其他都是抽象类用于统一接口。这在一些其他语言得到改善，如java。
+但有一种情况推荐多继承，就是一个主的继承类，其他都是抽象类用于统一接口。
 
 1. 主继承类
 2. 抽象类
+
+> tips: 多继承在一些其他语言中废弃，如java
 
 ## 权限顺序
 
@@ -1160,7 +1203,7 @@ C++允许多继承和不同权限的继承
 
 - 常量
 - 引用
-- 普通变量、指针
+- 普通对象
 
 ## 构造函数顺序
 
@@ -1207,7 +1250,7 @@ public:
 
 当设计较复杂结构，或者有内存管理的时候，应该自定义拷贝和移动语义。
 
-拷贝构造，拷贝赋值; 移动构造，移动赋值。要求成对出现或禁止。
+拷贝构造，拷贝赋值; 移动构造，移动赋值。**要求成对出现或禁止**。
 
 ## 使用override, delete, default, final
 
@@ -1250,6 +1293,12 @@ public:
 
 # ⭐内存管理
 
+> 💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥
+>
+> 💥强烈推荐：[Memory-Manage-Together](https://github.com/cuber-lotus/Memory-Manage-Together) 💥
+>
+> 💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥
+
 程序员不能管理好内存，就像男人不能管理好自己的下体。
 
 **核心思想：知道对象在整个程序中的生存周期。**
@@ -1289,11 +1338,11 @@ C++运用RAII机制定义了内置的标准智能指针，来帮助编程人员�
 
 ## 宏
 
-宏并非一无是处，但是能不用就不要用。
+宏并非一无是处，但是**能不用就不要用**。
 
 | 作用   | 替代                            |
 | ------ | ------------------------------- |
-| 数值   | 常量                            |
+| 数值   | 常量, constexpr                 |
 | 字符串 | const string，const char* const |
 | 函数   | 模板函数，内联函数              |
 
@@ -1309,7 +1358,7 @@ C++运用RAII机制定义了内置的标准智能指针，来帮助编程人员�
 
 ## 明示类型长度
 
-不同编译器对同一关键词类型的实现可能不同，且32位和64位系统也会有差异。
+不同编译器和硬件平台对同一关键词类型的实现可能不同，且32位和64位系统也会有差异。
 
 例如：long在标准中规定为 `int <= long <= long long` 。
 
@@ -1331,6 +1380,8 @@ typedef unsigned long long   uint64_t;
 ```
 
 ## 初始化
+
+初始化是一门非常大的学问，当你用任意一种初始化方式时，请确保你自己非常了解这种初始化方式。
 
 - 变量使用前要求初始化
 - 推荐使用大括号初始化
@@ -1359,10 +1410,12 @@ int main() {
     auto num0 = 1;
     // int
     auto num1(1);
-    // std::initializer_list<int>
-    auto num2 = {1};
+    
+    // {} in msvc C++17
     // int
     auto num3{1};
+    // class std::initializer_list<int>
+    auto num4 = {1};
 
     return 0;
 }
@@ -1381,6 +1434,8 @@ int main() {
 ## 修改TODO操作需与编写者或负责人协商
 
 ## 重构的code一定要重新测试
+
+## 不要为了装逼用让同事看不懂的技巧
 
 ## 截图要全
 
@@ -1405,7 +1460,7 @@ int main() {
 >
 > 有相关建议可以直接提交issue
 >
-> 欢迎讨论交流补充，或者团队想要二次加工建议等
+> 非常非常非常欢迎讨论交流补充，或者团队想要二次加工建议等
 
 
 ---
