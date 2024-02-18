@@ -12,7 +12,7 @@
 
 ## 前置
 
-本代码规范为C/C++语言(非特殊说明默认C++11)。
+本代码规范为C/C++语言(非特殊说明默认C++11~)。
 
 其他语言学习者也可以互相借鉴。
 
@@ -110,9 +110,11 @@ demo:
 
 ## 文件头注释
 
-在头文件中应该解释本文件的使用说明。
+可以借助现代ide来帮助生成头文件注释的模板。
 
-在源文件中应该简单描述本文件的编写思路。
+- **头文件**中应该解释本文件的使用说明。
+
+- **源文件**中应该简单描述本文件的编写思路。
 
 下面将列举文件头注释的常用标注类型。
 
@@ -131,7 +133,7 @@ demo:
  * Copyright © 202x
  * All right reserved. See COPYRIGHT for detailed Information.
  * @file       main.cpp
- * @author     cuber_lotus
+ * @author     cuber-lotus
  * @Email      1539349804@qq.com
  * @date       202x-xx-xx
  * @version    1.0.0
@@ -147,7 +149,7 @@ demo:
 
 若一个文件存在多个类，或者存在内部类，则应该把每个类或封装体都做注释解释。
 
-若存在友元则必须对友元的关系进行说明。
+若存在**友元**则必须对友元的关系进行说明。
 
 ```cpp
 /**
@@ -215,10 +217,12 @@ TODO注释通常表示当前的代码是一种临时或者不完全的代码。
 
 另外推荐使用与上下文风格不同的注释标注。（不固定）
 
+核心目的是为了醒目！
+
 ```cpp
 int fun (int x) {
     /** !!!!!!!!!!!!!!!!!!!!!!!!
-     !!! TODO(cuber_lotus)
+     !!! TODO(cuber-lotus)
      !!! TODO(1539349804@qq.com)
      !!! TODO(2023年2月29日)
      !!! 这是一份临时方案，因为。。。
@@ -336,7 +340,7 @@ namespace NAME2 {
  * @param len 
  * @return int* 
  */
-int* find0(int arr[], int len) {
+int* find_0(int arr[], int len) {
     int* idx = nullptr;
     for (int i = 0; i < len; i += 1) {
         if (0 == *(arr + i)) {
@@ -375,7 +379,7 @@ int main() {
     // while的判断太长
     // 一组空格
     do {
-        // work
+        // todo
     } while (arr[0] == arr[1] && arr[1] == arr[2] && arr[2] == arr[3] &&
         arr[3] == arr[4] && arr[4] == arr[5]);
 
@@ -383,7 +387,7 @@ int main() {
     // while的判断太长
     // 与并列的内容对齐
     do {
-        // work
+        // todo
     } while (arr[0] == arr[1] && arr[1] == arr[2] && arr[2] == arr[3] &&
              arr[3] == arr[4] && arr[4] == arr[5]);
 
@@ -647,26 +651,24 @@ int main() {
 - 不要和编译器，框架，三方库等等命名方式冲突
 - 注意包和文件命名的大小写在不同平台的区别（win, linux, ios）
 - 千万不要和**宏冲突**，宏一般为全大写
-- 慎用`$`来命名，会和部分框架的解析冲突
-- 慎用单`_`或者双`__`**开头**，该方式为多数编译器内置使用，请避免
 
 > 下方列出多个方案仅供参考，团队选取一种遵循即可
 
 ## 常用命名规范类型
 
-| 方式           | 举例       |
-| -------------- | ---------- |
-| 小驼峰         | redApple   |
-| 大驼峰         | RedApple   |
-| 下划线         | red_apple  |
-| 匈牙利命名法则 | m_redApple |
+| 方式           | 举例         |
+| -------------- | ------------ |
+| 小驼峰         | `redApple`   |
+| 大驼峰         | `RedApple`   |
+| 下划线         | `red_apple`  |
+| 匈牙利命名法则 | `m_redApple` |
 
 ## 长度应该适中
 
-|      | 过短                                     | 过长                                                |
-| ---- | ---------------------------------------- | --------------------------------------------------- |
-| 举例 | int a;                                   | void **Refresh_bigRoundRedWoodenChineseTable**() {} |
-| 坏处 | 过短的命名一般来说会是的名称的含义不明确 | 过长一般是因为耦合了太多内容，这是一种解耦的提示    |
+|      | 过短                                   | 过长                                              |
+| ---- | -------------------------------------- | ------------------------------------------------- |
+| 举例 | `int a;`                               | `void Refresh_bigRoundRedWoodenChineseTable() {}` |
+| 坏处 | 过短的命名一般来说就是名称的含义不明确 | 过长一般是因为耦合了太多内容，这是一种解耦的提示  |
 
 ## 缩写
 
@@ -679,7 +681,7 @@ int main() {
 
 **约定俗成的缩写**
 
-太多了，后续将不断补充，懂得都懂
+太多了，这里仅列举几个。
 
 | 原单词   | 缩写  |
 | -------- | ----- |
@@ -691,6 +693,8 @@ int main() {
 ## 文件
 
 > 启动文件名为`main`。
+>
+> 启动函数为`main`请勿随意修改。
 
 以类文件为例：
 
@@ -701,17 +705,17 @@ int main() {
   - Windows 不区分大小写
   - Linux 区分大小写
 
-| 格式 `<路径>_<类名>` | 举例                     |
-| -------------------- | ------------------------ |
-| 路径小写，类名大驼峰 | widget_set_DeviceMessage |
-| 路径小写，类名全小写 | widget_set_devicemessage |
+| 格式 `<路径>_<类名>` | 举例                       |
+| -------------------- | -------------------------- |
+| 路径小写，类名大驼峰 | `widget_set_DeviceMessage` |
+| 路径小写，类名全小写 | `widget_set_devicemessage` |
 
 **防重包含宏**
 
 | 格式                                | 举例                                                         |
 | ----------------------------------- | ------------------------------------------------------------ |
-| 全大写+下划线+文件名后缀+**时间戳** | WIDGET_SET_DEVICEMESSAGE_H_1679896661<br />WIDGET_SET_DEVICEMESSAGE_HPP_1679896661 |
-| 乱码（只要你敢）                    | fgGG5gs___$$25aeL36g$SDGfsA5                                 |
+| 全大写+下划线+文件名后缀+**时间戳** | `WIDGET_SET_DEVICEMESSAGE_H_1679896661`<br />`WIDGET_SET_DEVICEMESSAGE_HPP_1679896661` |
+| 乱码（只要你敢）                    | `fgGG5gs___$$25aeL36g$SDGfsA5`                               |
 
 ## namespace
 
@@ -802,10 +806,15 @@ Event *event_show;
 Event *event_hide;
 ```
 
+## 特殊字符说明
+
+勿使用`$`，在部分框架中该字符设计一些重链接性问题。
+
+勿使用`_`开头，因为该命名方式一般用于底层库的使用和编译器的解析，因为为了防止冲突请不要以下划线开头。
+
 ## 注意
 
-- 使用`_`，少用`$`
-- namespace和类都有域的概念，两者的命名风格推荐应该不一致
+namespace和类都有域的概念，两者的命名风格推荐应该不一致
 
 ```cpp
 // 解释1 namespace scope_a 中有 class scope_b 定义一个对象x
@@ -888,14 +897,16 @@ a->*b
 - 自增，自减在混合运算中，在不同编译器中实现的效果是不一样的
 - 使用宏定义时，可能会执行多次
 
-| 自增/自减   | 替代               |
-| ----------- | ------------------ |
-| i++; / ++i; | i += 1；           |
-| i--; / --i; | i += -1; / i -= 1; |
+| 自增/自减     | 替代                 |
+| ------------- | -------------------- |
+| `i++; / ++i;` | `i += 1;`            |
+| `i--; / --i;` | `i += -1; / i -= 1;` |
 
 ## 使用括号增加可读性
 
 在一些位运算，较长的逻辑判断时，应该增加括号来增加可读性和准确性。
+
+实在过长则应该跨行来编写。
 
 ```cpp
 // good
@@ -908,6 +919,10 @@ if (a && b + 1 || c << d | e) {
 ```
 
 ## 比较运算符左侧尽量写常量
+
+部分现代编译器和ide会有单等号的提示。且从左往右读更符合人的思考和阅读习惯。
+
+因此如何能保证正确，则该条说明不强制，单前提是保证了正确。
 
 ```cpp
 void* p;
@@ -948,8 +963,9 @@ if (flag) {
 
 ## 运算符重载
 
+- 时刻注意运算符重载的本质是函数的调用。
 - 禁止滥用运算符重载
-- 赋值运算符应与拷贝移动构造的效果保持一致
+- 赋值运算符应与拷贝，移动构造的效果保持一致
 - 慎用类型转换
 - 禁止重载&&||,等运算符
 - **TODO**
@@ -975,7 +991,7 @@ if (flag) {
 
 在C++中引用的提出极大的提升了函数传参的便捷性。
 
-指针有空指针和野指针的情况，而引用有明确对象。
+指针有空指针和野指针的情况，而引用有明确对象。（虽说也有空引用的隐性危险）
 
 ```cpp
 // C语言式传参
@@ -1006,7 +1022,7 @@ void show(const std::string& str) {
 void modify(std::string& str) {
 }
 
-// 允许或希望所有权转移
+// 希望所有权转移
 void modify(std::string&& str) {
 }
 ```
@@ -1061,7 +1077,7 @@ void fun(void* p) {
 
 ## lambda表达式
 
-> 注意：lambda表达式的本质是一个具有仿函数的匿名类的匿名对象，属于可调用对象
+> 注意：lambda表达式的本质是一个具有仿函数的匿名类的**匿名对象**，属于可调用对象
 >
 > 不知道本质的话，很多情况就会搞不清了
 
@@ -1298,10 +1314,14 @@ public:
 > 💥强烈推荐：[Memory-Manage-Together](https://github.com/cuber-lotus/Memory-Manage-Together) 💥
 >
 > 💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥
-
-程序员不能管理好内存，就像男人不能管理好自己的下体。
+>
+> **“C makes it easy to shoot yourself in the foot; C++ makes it harder, but when you do it blows your whole leg off”**
+>
+> **--- Bjarne Stroustrup's FAQ**
 
 **核心思想：知道对象在整个程序中的生存周期。**
+
+即使具有再多技巧，如果不能理解对象的生命周期，全是白搭。
 
 ## 使用new/delete而非malloc/free
 
@@ -1369,14 +1389,14 @@ C++运用RAII机制定义了内置的标准智能指针，来帮助编程人员�
 #include <stdint.h>
 //! 注意，不同平台和编译器有差异
 //! 此处展示为 gcc version 7.3.0 (i686-posix-dwarf-rev0, Built by MinGW-W64 project)
-typedef signed char int8_t;
-typedef unsigned char   uint8_t;
-typedef short  int16_t;
-typedef unsigned short  uint16_t;
-typedef int  int32_t;
-typedef unsigned   uint32_t;
-typedef long long  int64_t;
-typedef unsigned long long   uint64_t;
+typedef signed char        int8_t;
+typedef unsigned char      uint8_t;
+typedef short              int16_t;
+typedef unsigned short     uint16_t;
+typedef int                int32_t;
+typedef unsigned           uint32_t;
+typedef long long          int64_t;
+typedef unsigned long long uint64_t;
 ```
 
 ## 初始化
@@ -1457,6 +1477,8 @@ int main() {
 # ⭐后记
 
 > **e-mail**: 1539349804@qq.com
+>
+> [天赐细莲-哔哩哔哩](https://space.bilibili.com/8172252)
 >
 > 有相关建议可以直接提交issue
 >
