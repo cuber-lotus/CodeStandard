@@ -12,7 +12,7 @@
 
 ## 前置
 
-本代码规范为C/C++语言(非特殊说明默认C++11~)。
+本代码规范为 C/C++ 语言(非特殊说明默认 C++11 ~ )。
 
 其他语言学习者也可以互相借鉴。
 
@@ -26,7 +26,7 @@
 
 - 代码是死的，人是活的。
 - 坚持一个能跑原则。
-- 优先保证代码和程序的正确性。
+- 优先保证代码和程序的正确性，再是其他。
 
 ## 使用说明
 
@@ -66,6 +66,10 @@ demo:
 
 **后缀名**
 
+应用统一的常见后缀。
+
+特殊模块应团队决议。
+
 | 头文件         | 源文件                    |
 | -------------- | ------------------------- |
 | .h; .hpp; .hxx | .c; .cpp; .cc; .cxx; .tcc |
@@ -84,15 +88,16 @@ demo:
 
 使用[Pimpl](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Ri-pimpl)的技巧减少头文件中include的扇入。
 
+对于二进制接口（ABI）情况应该使用 Pimpl。
+
 **字符集**
 
 头文件和源文件的字符集应该保持一致。
 
 ## 文件
 
-- 整个项目的应该保持统一的字符集
-- 用空格代替`tab` (一般推荐2或4或8空格)
-
+- 整个项目应该保持统一的字符集
+- 用空格代替 tab （一般推荐 2 或 4 或 8 空格）
 
 
 # ⭐注释
@@ -211,11 +216,11 @@ void fun() { // @brief fun
 
 ## TODO注释
 
-TODO注释通常表示当前的代码是一种临时或者不完全的代码。
+TODO注释通常表示当前的代码是一种**临时**或者**不完全**的代码。
 
 需要标注编写者，联系方式，编写时间等信息。
 
-另外推荐使用与上下文风格不同的注释标注。（不固定）
+另外推荐使用与上下文**风格不同的注释**标注。（不固定）
 
 核心目的是为了醒目！
 
@@ -267,7 +272,7 @@ void fun() {
 ## 细节技巧
 
 - `//` 后空一格
-- 注释内容为重要单词或变量时可加引号或者前后空格，便于直接双击选取
+- 注释内容为重要单词或变量时可加引号或者前后空格，便于阅读和直接双击选取
   - `// 这是这个 class 的注释`
   - `// 这是这个'class'的注释`
 - `/**/` 中间的每行可以加`*`或其他来美化代码
@@ -280,11 +285,20 @@ void fun() {
 /**
  * @brief The ColorEnum enum
  */
-enum ColorEnum {
-    COLOR_RED,  // 红色
-    COLOR_BLUE  // 蓝色
+enum class ColorEnum {
+    RED,  // 红色
+    BLUE  // 蓝色
 };
 ```
+
+对于单行注释最后的换行符 `\` 后是否有空格，在 C++23 前是 ub，因此不要有空格。
+
+```cpp
+// 下行最后的空格在 C++23 前是 ub
+int day = 1;	// 天<空格>
+```
+
+
 
 
 
@@ -292,7 +306,7 @@ enum ColorEnum {
 
 ## 使用空格而不是tab
 
-禁止tab缩进，使用空格缩进4字符。(可2字符或8字符，遵循项目统一)
+禁止 tab 缩进，使用空格缩进 4 字符。(可 2 字符或 8 字符，遵循项目统一)
 
 ## 注释与注释目标对齐
 
@@ -359,9 +373,9 @@ finded:
 
 ## 行长的限定
 
-不得超出屏幕可视范围的80%，由于每个人的屏幕等因素不一样，一般规定为80~120字符。
+不得超出屏幕可视范围的 80%，由于每个人的屏幕等因素不一样，一般规定为 80~120 字符。
 
-> 因为历史遗留原因，部分规范规定一直规定是80字符，但随着发展可适当增加长度。
+> 因为历史遗留原因，部分规范规定一直规定是 80 字符，但随着发展可适当增加长度。
 
 ## 换行
 
@@ -433,18 +447,16 @@ int main() {
 
 # ⭐语句块
 
-本文默认左大括号不换行。在部分C语言规范中要求左括号换行。
+本文默认左大括号不换行。在部分 C语言 规范中要求左括号换行。
 
-> 在Golang语言中，将左括号是否换行定为了语法规范
-
-保持同一函数和同一文件的一致性。
+保持同一函数，同一文件，同一模块的风格一致。
 
 ## 勿一行声明多个变量
 
 一行应该仅声明一个变量
 
 - 便于表达独立的语义
-- 便于cv限定符，*[]，&等符号的作用限定
+- 便于 cv 限定符，`*[]`，`&`等符号的作用限定
 
 EXC：若具有强关联的并列属性可以同行。
 
@@ -462,26 +474,24 @@ struct Cube {
 - 有`:`的后侧加空格
 - 必须加`{}`构成块级作用域
 
-## if else
+## if else, try catch
 
-> try catch 同理
-
-分支较短的else可以跟在}后面
+分支较短的`else`可以跟在}后面
 
 分支较多的需要换行便于加注释描述
 
 ```cpp
 #include <string>
 
-enum SEX {
-    SEX_Male,        // male
-    SEX_Female,      // female
-    SEX_Intersex,    // intersex
-    SEX_Androgynous  // androgynous
+enum class SEX {
+    Male,        // male
+    Female,      // female
+    Intersex,    // intersex
+    Androgynous  // androgynous
 };
 
 ::std::string Ask_sex(const SEX type) {
-    if (type == SEX_Male) {
+    if (type == SEX::Male) {
         return "Male";
     } else {
         return "Female";
@@ -493,19 +503,19 @@ enum SEX {
     if (false) {
     }
     // male 男性
-    else if (type == SEX_Male) {
+    else if (type == SEX::Male) {
         return "Male";
     }
     // female 女性
-    else if (type == SEX_Female) {
+    else if (type == SEX::Female) {
         return "Female";
     }
     // intersex 双性人
-    else if (type == SEX_Intersex) {
+    else if (type == SEX::Intersex) {
         return "Intersex";
     }
     // androgynous 不男不女
-    else if (type == SEX_Androgynous) {
+    else if (type == SEX::Androgynous) {
         return "Androgynous";
     }
     // default
@@ -517,30 +527,30 @@ enum SEX {
 
 ## switch
 
-注意，switch-case的原理与goto类似，是立即跳转的。
+注意，`switch case`的原理与`goto`类似，是立即跳转的。
 
 - 每个case必须包含`{}`构成块级作用域
-- 必须有默认default
-- break在大括号外
+- 必须有默认`default`
+- `break`在大括号外
 - 不得在非`{}`中声明变量
-- case是否缩进均可
+- `case`是否缩进均可
 
 ```cpp
 #include <string>
 
-enum SEX {
-    SEX_Male,    // male
-    SEX_Female,  // female
+enum class SEX {
+    Male,    // male
+    Female,  // female
 };
 
 ::std::string Ask_sexDetail(const SEX type) {
     switch (type) {
     // male 男性
-    case SEX_Male: {
+    case SEX::Male: {
         return "Male";
     } break;
     // female 女性
-    case SEX_Female: {
+    case SEX::Female: {
         return "Female";
     } break;
     // default
@@ -594,16 +604,14 @@ int main() {
 
 ## 指针和引用左右选择一边留空格
 
-&推荐贴近变量名的一侧。
+`&`推荐贴近变量名的一侧。
 
 ```cpp
 // good
-void funGood(int *p, int &ref) {
-}
+void funGood(int *p, int &ref);
 
 // bad
-void funBad(int * p, int&ref) {
-}
+void funBad(int * p, int&ref);
 ```
 
 ## 综合举例
@@ -642,6 +650,9 @@ int main() {
 
 # ⭐命名
 
+> There are only two hard things in Computer Science: cache invalidation and naming things.
+> -- Phil Karlton
+
 命名规范是代码和项目规范中最重要的内容之一，也是离每个程序员最贴近的规范。
 
 **注意：**
@@ -652,7 +663,7 @@ int main() {
 - 注意包和文件命名的大小写在不同平台的区别（win, linux, ios）
 - 千万不要和**宏冲突**，宏一般为全大写
 
-> 下方列出多个方案仅供参考，团队选取一种遵循即可
+> 下方列出多个方案**仅供参考**，团队选取一种遵循即可
 
 ## 常用命名规范类型
 
@@ -694,7 +705,7 @@ int main() {
 
 > 启动文件名为`main`。
 >
-> 启动函数为`main`请勿随意修改。
+> 启动函数为`main`，非特殊情况请勿随意修改。
 
 以类文件为例：
 
@@ -710,7 +721,7 @@ int main() {
 | 路径小写，类名大驼峰 | `widget_set_DeviceMessage` |
 | 路径小写，类名全小写 | `widget_set_devicemessage` |
 
-**防重包含宏**
+**包含守卫（include guard）**
 
 | 格式                                | 举例                                                         |
 | ----------------------------------- | ------------------------------------------------------------ |
@@ -759,10 +770,10 @@ int main() {
 
 ## enum
 
-| 格式                   | 举例      |
-| ---------------------- | --------- |
-| **枚举名** 大驼峰      | ColorEnum |
-| **枚举量** 前缀+大驼峰 | Color_Red |
+| 格式                   | 举例                                             |
+| ---------------------- | ------------------------------------------------ |
+| **枚举名** 大驼峰      | ColorEnum                                        |
+| **枚举量** 前缀+大驼峰 | Color_Red（C语言，C++11 的enum class可不用前缀） |
 
 枚举天然的具有并列的特点，因此推荐在再每个枚举量前加上整个枚举类型的特性。
 
@@ -773,6 +784,11 @@ enum ColorEnum {
     COLOR_Red,  // 红色
     COLOR_Blue  // 蓝色
 };
+
+enum class ColorEnum {
+    Red,  // 红色
+    Blue  // 蓝色
+};
 ```
 
 ## union
@@ -782,8 +798,8 @@ enum ColorEnum {
 
 ## using和typedef
 
-- C语言中使用typedef
-- C++中使用using（请不要再用typedef）
+- C语言 中使用`typedef`
+- C++中使用`using`（请不要再用`typedef`）
 
 注意，这两者都是有作用范围的。
 
@@ -808,13 +824,15 @@ Event *event_hide;
 
 ## 特殊字符说明
 
-勿使用`$`，在部分框架中该字符设计一些重链接性问题。
+勿使用`$`，在部分框架中`$`涉及一些重链接性问题。
 
 勿使用`_`开头，因为该命名方式一般用于底层库的使用和编译器的解析，因为为了防止冲突请不要以下划线开头。
 
 ## 注意
 
-namespace和类都有域的概念，两者的命名风格推荐应该不一致
+`namespace`和类都有域的概念。
+
+两者的命名风格是否一致，需要团队决议。
 
 ```cpp
 // 解释1 namespace scope_a 中有 class scope_b 定义一个对象x
@@ -920,7 +938,7 @@ if (a && b + 1 || c << d | e) {
 
 ## 比较运算符左侧尽量写常量
 
-部分现代编译器和ide会有单等号的提示。且从左往右读更符合人的思考和阅读习惯。
+部分现代编译器和 ide 会有单等号的提示。且从左往右读更符合人的思考和阅读习惯。
 
 因此如何能保证正确，则该条说明不强制，单前提是保证了正确。
 
@@ -967,7 +985,7 @@ if (flag) {
 - 禁止滥用运算符重载
 - 赋值运算符应与拷贝，移动构造的效果保持一致
 - 慎用类型转换
-- 禁止重载&&||,等运算符
+- 禁止重载`&&||,`等运算符
 - **TODO**
 
 
@@ -978,18 +996,18 @@ if (flag) {
 
 每个函数应该有自己专属的功能，不要一个函数处理多个任务。
 
-参数个数不易过多，除非是一系列并列性质的参数。
+参数个数不宜过多，若过多应该包装成结构体。除非是一系列并列性质的参数。
 
 **不明确的信号**：
 
-- 超过100行
+- 超过 100 行
 - 入参过多
 - 做过多判断
-- 扇出高于10
+- 扇出高于 10
 
 ## 使用引用，减少使用指针
 
-在C++中引用的提出极大的提升了函数传参的便捷性。
+在 C++ 中引用的提出极大地提升了函数传参的便捷性。
 
 指针有空指针和野指针的情况，而引用有明确对象。（虽说也有空引用的隐性危险）
 
@@ -1009,25 +1027,22 @@ void cpp_swap(int &a, int &b) {
 }
 ```
 
-## 用const表示允许修改与否
+## 用 const 表示允许修改与否
 
 ```cpp
 #include <string>
 
 // 不许修改
-void show(const std::string& str) {
-}
+void show(const std::string& str);
 
 // 允许或希望修改
-void modify(std::string& str) {
-}
+void modify(std::string& str);
 
 // 希望所有权转移
-void modify(std::string&& str) {
-}
+void modify(std::string&& str);
 ```
 
-## 右值引用使用std::move转发引用使用std::forward
+## 右值引用使用 std::move 转发引用使用 std::forward
 
 ```CPP
 #include <string>
@@ -1047,23 +1062,21 @@ void fun(Type&& arg) {
 
 ```cpp
 // good
-void swap(int &a, int &b) {
-}
-void swap(double &a, double &b) {
-}
-void fun() {
-}
+void swap(int &a, int &b);
+void swap(double &a, double &b);
+void fun();
 
 // bad
-void swap(int &a, int &b) {
-}
-void fun() {
-}
-void swap(double &a, double &b) {
-}
+void swap(int &a, int &b);
+void fun();
+void swap(double &a, double &b);
 ```
 
 ## 指针参数应该检测合法性
+
+其实应该在接口说明中说明，到底是否检查。
+
+**（TODO）**待 C++26 是否加入契约再决定。
 
 ```cpp
 void fun(void* p) {
@@ -1093,9 +1106,9 @@ void fun(void* p) {
 
 无论是入参还是出参，都应该给外部明确。
 
-在C++11中提出了尾值返回，在C++14中支持返回值写成`decltype(auto)`。
+在 C++11 中提出了尾值返回，在 C++14 中支持返回值写成`decltype(auto)`。
 
-在外部接收时，不要理所当然的以为是自己知道的类型，然后就使用auto。
+在外部接收时，不要理所当然地以为是自己知道的类型，然后就使用 `auto`。
 
 ```cpp
 #include <vector>
@@ -1126,16 +1139,16 @@ int main() {
     // 明确返回值类型
     bool b0 = arr[0];
     // ::std::vector<bool> 是一个特化版本
-    // operator[]的返回值是 class _Bit_reference in gnu-gcc
+    // operator[] 的返回值是 class _Bit_reference in gnu-gcc
     auto b1 = arr[0];
 
     return 0;
 }
 ```
 
-## 禁止悬空返回
+## 禁止悬挂返回
 
-出现悬空的核心就是在于没有理清对象的生存周期。
+出现悬挂的核心就是在于没有理清对象的生存周期。（基本功补补）
 
 **常见悬空返回**：
 
@@ -1174,26 +1187,26 @@ int main() {
 
 # ⭐类
 
-> class和struct的**唯一**区别就是默认权限不同
+> `class`和`struct`的**唯一**区别就是默认权限不同
 
 ## 继承顺序
 
-C++允许多继承和不同权限的继承
+C++ 允许多继承和不同权限的继承
 
-但是一般来说多继承会出现很多意想不到的问题，因此不推荐多继承，绝大多数情况请直接使用public继承。
+但是一般来说多继承会出现很多意想不到的问题，因此不推荐多继承，绝大多数情况请直接使用 public 继承。
 
 但有一种情况推荐多继承，就是一个主的继承类，其他都是抽象类用于统一接口。
 
 1. 主继承类
 2. 抽象类
 
-> tips: 多继承在一些其他语言中废弃，如java
+> tips: 多继承在一些其他语言中废弃，如 java
 
 ## 权限顺序
 
-1. public
-2. protected
-3. private
+1. `public`
+2. `protected`
+3. `private`
 
 ## 内容顺序
 
@@ -1204,9 +1217,9 @@ C++允许多继承和不同权限的继承
    2. 友元函数
 2. using 声明
 3. 封装体
-   1. enum
-   2. union
-   3. class & struct
+   1. `enum`
+   2. `union`
+   3. `class & struct`
 4. 静态变量
 5. 静态函数
 6. 成员变量
@@ -1257,8 +1270,7 @@ public:
 ```cpp
 class MyClass {
 public:
-    explicit MyClass(int x, int y = 10) {
-    }
+    explicit MyClass(int x, int y = 10);
 };
 ```
 
@@ -1270,7 +1282,7 @@ public:
 
 ## 使用override, delete, default, final
 
-使用C++11提出的这些关键词明示作用。
+使用 C++11 提出的这些关键词明示作用。
 
 注意，显示删除的函数也参与重载决议。
 
@@ -1323,23 +1335,23 @@ public:
 
 即使具有再多技巧，如果不能理解对象的生命周期，全是白搭。
 
-## 使用new/delete而非malloc/free
+## 使用 new/delete 而非 malloc/free
 
 **new/delete的优势：**
 
-- new/delete 会调用构造和析构
-- new/delete 能让程序员偏向于对象的思维
-- new/delete 支持对基本类型的操作
+- `new/delete` 会调用构造和析构
+- `new/delete` 能让程序员偏向于对象的思维
+- `new/delete` 支持对基本类型的操作
 
-关于new和delete的重载，参见运算符重载章节
+关于`new/delete`的重载，参见运算符重载章节
 
 ## 合理使用智能指针
 
-C++运用RAII机制定义了内置的标准智能指针，来帮助编程人员自动管理内存。
+C++ 运用 RAII 机制定义了内置的标准智能指针，来帮助编程人员自动管理内存。
 
-但是并不是所有情况都应该用智能指针。很多在使用智能指针的场景，可以用`对象+引用`的方式代替。
+但是并不是所有情况都应该用智能指针。很多在使用智能指针的场景，可以用**对象+引用**的方式代替。
 
-注意`::std::unique_ptr和::std::share_ptr`的使用区别和使用细节。
+注意`::std::unique_ptr/::std::share_ptr`的使用区别和使用细节。
 
 > 注意：智能指针的线程不安全的
 
@@ -1360,11 +1372,12 @@ C++运用RAII机制定义了内置的标准智能指针，来帮助编程人员�
 
 宏并非一无是处，但是**能不用就不要用**。
 
-| 作用   | 替代                            |
-| ------ | ------------------------------- |
-| 数值   | 常量, constexpr                 |
-| 字符串 | const string，const char* const |
-| 函数   | 模板函数，内联函数              |
+| 作用   | 替代                                |
+| ------ | ----------------------------------- |
+| 数值   | 常量, `constexpr`                   |
+| 字符串 | `const string`，`const char* const` |
+| 函数   | 模板函数，内联函数                  |
+| 日志宏 | `std::source_location`              |
 
 ## 异常
 
@@ -1374,13 +1387,13 @@ C++运用RAII机制定义了内置的标准智能指针，来帮助编程人员�
 
 ## 类型转换
 
-使用casting，而非传统C语言的强转。
+使用 casting，而非传统 C语言 的强转。
 
 ## 明示类型长度
 
-不同编译器和硬件平台对同一关键词类型的实现可能不同，且32位和64位系统也会有差异。
+不同编译器和硬件平台对同一关键词类型的实现可能不同，且 32 位和 64 位系统也会有差异。
 
-例如：long在标准中规定为 `int <= long <= long long` 。
+例如：`long` 在标准中规定为 **int <= long <= long long**。
 
 主要针对该变量是有位数有要求的情况。
 
@@ -1447,13 +1460,13 @@ int main() {
 
 ## 不要修改不是自己写的文件
 
-## 不要修改已经确定提供给外部的接口名
+## 不要修改已经确定提供给外部的接口签名
 
 ## include 相对路径
 
-## 修改TODO操作需与编写者或负责人协商
+## 修改 TODO 操作需与编写者或负责人协商
 
-## 重构的code一定要重新测试
+## 重构的 code 一定要重新测试
 
 ## 不要为了装逼用让同事看不懂的技巧
 
@@ -1474,6 +1487,30 @@ int main() {
 
 
 
+# ⭐工具
+
+## clang-format
+
+推荐使用 **clang-format** 直接对代码进行格式化。
+
+可以的话直接写个脚本，一口气作用于所有的文件。
+
+## cmake
+
+cmake 也需要格式化。主流工具有两个。
+
+- https://github.com/cheshirekow/cmake_format
+- https://github.com/BlankSpruce/gersemi
+
+使用介绍：
+
+- [(cmake-format) CMake 格式化工具-CSDN博客](https://blog.csdn.net/CUBE_lotus/article/details/143246435)
+- [(gersemi) CMake 格式化工具-CSDN博客](https://blog.csdn.net/CUBE_lotus/article/details/143221797)
+
+## 测试工具
+
+**TODO**
+
 # ⭐后记
 
 > **e-mail**: 1539349804@qq.com
@@ -1483,7 +1520,6 @@ int main() {
 > 有相关建议可以直接提交issue
 >
 > 非常非常非常欢迎讨论交流补充，或者团队想要二次加工建议等
-
 
 ---
 ---
