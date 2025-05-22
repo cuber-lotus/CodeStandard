@@ -6,13 +6,13 @@
 ## 链接
 
 - **Github-link**: [cuber-lotus/CodeStandard: C/C++代码规范 (github.com)](https://github.com/cuber-lotus/CodeStandard) 
-- **e-mail**： 1539349804@qq.com
+- **e-mail**: 1539349804@qq.com
 - **QQ-Group**: 817328828
 - **Bilibili**: [天赐细莲 (bilibili.com)](https://space.bilibili.com/8172252)
 
 ## 前置
 
-本代码规范为 C/C++ 语言(非特殊说明默认 C++11 ~ )。
+本代码规范为 C/C++ 语言(非特殊说明默认 C++11 及以上)。
 
 其他语言学习者也可以互相借鉴。
 
@@ -76,9 +76,9 @@ demo:
 
 **分包**
 
-由于头文件和源文件的职责不同，应该分包。
+由于头文件和源文件的职责不同，有的团队会选择分包。
 
-有的ide会自动识别分包。
+有的 ide 会自动识别分包。
 
 | 头文件                           | 源文件                        |
 | -------------------------------- | ----------------------------- |
@@ -86,7 +86,7 @@ demo:
 
 **扇入扇出**
 
-使用[Pimpl](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Ri-pimpl)的技巧减少头文件中include的扇入。
+使用 [Pimpl](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Ri-pimpl) 的技巧减少头文件中 include 的扇入。
 
 对于二进制接口（ABI）情况应该使用 Pimpl。
 
@@ -115,7 +115,7 @@ demo:
 
 ## 文件头注释
 
-可以借助现代ide来帮助生成头文件注释的模板。
+可以借助现代 ide 来帮助生成头文件注释的模板。
 
 - **头文件**中应该解释本文件的使用说明。
 
@@ -299,12 +299,9 @@ int day = 1;	// 天<空格>
 ```
 
 
-
-
-
 # ⭐缩进
 
-## 使用空格而不是tab
+## 使用空格而不是 tab
 
 禁止 tab 缩进，使用空格缩进 4 字符。(可 2 字符或 8 字符，遵循项目统一)
 
@@ -312,7 +309,7 @@ int day = 1;	// 天<空格>
 
 注释相关内容具体见注释标准。
 
-## 类权限与class关键字对齐
+## 类权限与 class 关键字对齐
 
 ```cpp
 // 全局类
@@ -476,7 +473,7 @@ struct Cube {
 
 ## if else, try catch
 
-分支较短的`else`可以跟在}后面
+分支较短的 `else` 可以跟在 `}` 后面
 
 分支较多的需要换行便于加注释描述
 
@@ -529,10 +526,10 @@ enum class SEX {
 
 注意，`switch case`的原理与`goto`类似，是立即跳转的。
 
-- 每个case必须包含`{}`构成块级作用域
-- 必须有默认`default`
-- `break`在大括号外
-- 不得在非`{}`中声明变量
+- 每个 `case` 必须包含`{}`构成块级作用域
+- 必须有默认 `default`
+- `break` 在大括号外
+- 不得在非 `{}` 中声明变量
 - `case`是否缩进均可
 
 ```cpp
@@ -563,9 +560,9 @@ enum class SEX {
 
 ## goto
 
-时常听到有些地方提倡禁止使用goto。
+时常听到有些地方提倡禁止使用 goto。
 
-但是本文要求的是，可以使用goto，但是在**任何用到goto的地方必须加以大量的注释和说明！**且保证goto不会出现跳过声明，跨编译器编译错误等诸多问题！
+但是本文要求的是，可以使用 goto，但是在**任何用到 goto 的地方必须加以大量的注释和说明！**且保证 goto 不会出现跳过声明，跨编译器编译错误等诸多问题！
 
 推荐在跳转标签后加`;`以便一些语法解析操作。
 
@@ -645,7 +642,6 @@ int main() {
     return 0;
 }
 ```
-
 
 
 # ⭐命名
@@ -798,8 +794,8 @@ enum class ColorEnum {
 
 ## using和typedef
 
-- C语言 中使用`typedef`
-- C++中使用`using`（请不要再用`typedef`）
+- C语言 中使用 `typedef`
+- C++中使用 `using`（请不要再用`typedef`）
 
 注意，这两者都是有作用范围的。
 
@@ -839,7 +835,6 @@ Event *event_hide;
 // 解释2 class scope_a 中有内部类 class scope_b 定义一个对象x
 scope_a::scope_b x;
 ```
-
 
 
 # ⭐运算符
@@ -987,7 +982,6 @@ if (flag) {
 - 慎用类型转换
 - 禁止重载`&&||,`等运算符
 - **TODO**
-
 
 
 # ⭐函数
@@ -1184,7 +1178,6 @@ int main() {
 ```
 
 
-
 # ⭐类
 
 > `class`和`struct`的**唯一**区别就是默认权限不同
@@ -1318,7 +1311,6 @@ public:
 ```
 
 
-
 # ⭐内存管理
 
 > 💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥
@@ -1363,7 +1355,6 @@ C++ 运用 RAII 机制定义了内置的标准智能指针，来帮助编程人�
 - 单例模式
 - 类的静态成员
 - 外部具有自己生存周期的内存
-
 
 
 # ⭐其他
@@ -1455,7 +1446,6 @@ int main() {
 ```
 
 
-
 # ⭐团队合作
 
 ## 不要修改不是自己写的文件
@@ -1486,7 +1476,6 @@ int main() {
 每个人的时间都很宝贵
 
 
-
 # ⭐工具
 
 ## clang-format
@@ -1510,6 +1499,7 @@ cmake 也需要格式化。主流工具有两个。
 ## 测试工具
 
 **TODO**
+
 
 # ⭐后记
 

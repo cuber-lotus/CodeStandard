@@ -1,7 +1,9 @@
-'''
+"""
 Author channel: https://space.bilibili.com/8172252
-'''
+"""
+
 import os
+
 
 class PathFactory:
     cur_dir = os.path.split(os.path.realpath(__file__))[0]
@@ -16,13 +18,16 @@ class PathFactory:
     def get_sources_path_list(soruces_realpath: str, filter_key: str):
         # 生成path
         soruces_abspath = os.path.abspath(
-            os.path.join(PathFactory.cur_dir, soruces_realpath))
+            os.path.join(PathFactory.cur_dir, soruces_realpath)
+        )
         # 过滤出该 path 下的文件
-        file_path_list = [name for name in os.listdir(
-            soruces_abspath) if filter_key in name]
+        file_path_list = [
+            name for name in os.listdir(soruces_abspath) if filter_key in name
+        ]
         # 重新拼接成绝对路径
-        file_path_list = [os.path.join(soruces_abspath, name)
-                          for name in file_path_list]
+        file_path_list = [
+            os.path.join(soruces_abspath, name) for name in file_path_list
+        ]
         file_path_list.sort()
         return file_path_list
 
